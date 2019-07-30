@@ -3,9 +3,12 @@ import CardBack from "../images/CardBack.jpg";
 
 const Card = ({ card, checkFlipped }) => {
   const [flipped, changeFlip] = useState(false);
+
   const handleFlip = () => {
-    changeFlip(true);
-    checkFlipped({ id: card.id, changeFlip: changeFlip });
+    if (flipped !== true) {
+      changeFlip(true);
+      checkFlipped({ id: card.id, changeFlip: changeFlip });
+    }
   };
   return (
     <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-5">

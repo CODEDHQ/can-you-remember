@@ -15,8 +15,11 @@ const shuffle = list => {
 
 const Grid = () => {
   var usedCards = [];
-  const [flippedCards, changeFlipped] = useState([]);
-
+  //   const [flippedCards, changeFlipped] = useState([]);
+  var flippedCards = [];
+  const changeFlipped = anArray => {
+    flippedCards = anArray;
+  };
   const checkFlipped = flippedObject => {
     changeFlipped([...flippedCards, flippedObject]);
     if (flippedCards.length === 2) {
