@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CardBack from "../images/CardBack.jpg";
+import cardBack from "../images/CardBack.jpg";
 
 const Card = ({ card, checkFlipped }) => {
   const [flipped, changeFlip] = useState(false);
@@ -7,7 +7,10 @@ const Card = ({ card, checkFlipped }) => {
   const handleFlip = () => {
     if (flipped !== true) {
       changeFlip(true);
-      checkFlipped({ id: card.id, changeFlip: changeFlip });
+      setTimeout(
+        () => checkFlipped({ id: card.id, changeFlip: changeFlip }),
+        1000
+      );
     }
   };
   return (
@@ -15,7 +18,7 @@ const Card = ({ card, checkFlipped }) => {
       <div className="card">
         <img
           className="mx-auto"
-          src={flipped ? card.front : CardBack}
+          src={flipped ? card.front : cardBack}
           //   used percentages instead of pixels to be responsive with the screen size
           height="100%"
           width="100%"
