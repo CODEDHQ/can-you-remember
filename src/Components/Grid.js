@@ -2,10 +2,19 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import cards from "../data";
 import methods from "./methods";
+import Score from "./Score";
 
 const Grid = ({ mode, difficult }) => {
   const [usedCards, setUsedCards] = useState([]);
   //   const [flippedCards, changeFlipped] = useState([]);
+
+  //To Store player scores and pass them
+  const [playerScores, setPlayersScores] = useState([
+    { player1Score: 0 },
+    { player2Score: 0 }
+  ]);
+  //To know which player's turn it is
+  const [player1Turn, setPlayerTurn] = useState(true);
   const [failedFlips, increaseFailed] = useState(0);
   let flippedCards = [];
   const changeFlipped = anArray => {
@@ -26,13 +35,24 @@ const Grid = ({ mode, difficult }) => {
       if (flippedCards[0].id !== flippedCards[1].id) {
         unflipCards(flippedCards[0].changeFlip, flippedCards[1].changeFlip);
         increaseFailed(failedFlips + 1);
+        setPlayerTurn(!player1Turn);
+      } else {
+        if (mode === "multi") {
+          let temp = playerScores;
+          if (player1Turn) {
+            temp[0].player1Score += 1;
+          } else {
+            temp[1].player2Score += 1;
+          }
+          setPlayersScores(temp);
+        }
       }
       changeFlipped([]);
     }
   };
 
   //Used to duplicate the amount of cards since we need two of each and shuffle them using the function defined at the top
-
+  console.log(playerScores[0].player1Score);
   useEffect(() => {
     let cardsToUse = [];
     switch (difficult) {
@@ -61,13 +81,20 @@ const Grid = ({ mode, difficult }) => {
       <div className="row">
         <div className=" col-9">
           <h1>Grid</h1>
+          {mode === "multi" ? (
+            <div>
+              <h1>{player1Turn ? "Player 1's Turn" : "Player 2's Turn"}</h1>
+            </div>
+          ) : null}
           {/* Called cardDiv to place the cards in this componenet */}
           <div className="row">{cardDiv}</div>
         </div>
-        <div className="col-3">
-          <h1>Failed Attempts</h1>
-          <h3>{failedFlips}</h3>
-        </div>
+        <Score
+          failedFlips={failedFlips}
+          player1Score={playerScores[0].player1Score}
+          player2Score={playerScores[1].player2Score}
+          mode={mode}
+        />
       </div>
     </div>
   );
