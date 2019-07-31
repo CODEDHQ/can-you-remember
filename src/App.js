@@ -10,10 +10,10 @@ function App() {
   const [difficult, setDifficulty] = useState(null);
   console.log(mode, "  Rendering");
   return (
-    <div className="App">
+    <div className="App border my-5">
       {difficult ? (
         <div>
-          <Grid mode={difficult} />
+          <Grid difficult={difficult} mode={mode} />
         </div>
       ) : (
         <div>
@@ -24,8 +24,19 @@ function App() {
           )}
         </div>
       )}
-      {/* <Home /> */}
-      {/* <Grid mode="Medium" /> */}
+      <div className="row">
+        <div className="col-3">
+          <button
+            className="btn btn-danger mb-3"
+            onClick={() => {
+              setMode(null);
+              setDifficulty(null);
+            }}
+          >
+            Reset
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

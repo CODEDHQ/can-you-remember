@@ -3,7 +3,7 @@ import Card from "./Card";
 import cards from "../data";
 import methods from "./methods";
 
-const Grid = ({ mode }) => {
+const Grid = ({ mode, difficult }) => {
   const [usedCards, setUsedCards] = useState([]);
   //   const [flippedCards, changeFlipped] = useState([]);
   const [failedFlips, increaseFailed] = useState(0);
@@ -35,7 +35,7 @@ const Grid = ({ mode }) => {
 
   useEffect(() => {
     let cardsToUse = [];
-    switch (mode) {
+    switch (difficult) {
       case "easy":
         cardsToUse = cards.slice(0, 6);
         break;
@@ -47,7 +47,7 @@ const Grid = ({ mode }) => {
         break;
     }
     setUsedCards(() => methods.Shuffle(cardsToUse.concat(cardsToUse)));
-  }, [mode]);
+  }, [difficult]);
 
   //Switch to check which difficulty is used and take the amount of cards needed
 
