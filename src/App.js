@@ -8,7 +8,7 @@ import Grid from "./Components/Grid";
 function App() {
   return (
     <div className="App">
-      <Grid />
+      <Grid mode="Medium" />
     </div>
   );
 }

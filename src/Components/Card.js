@@ -7,14 +7,15 @@ const Card = ({ card, checkFlipped }) => {
   const handleFlip = () => {
     if (flipped !== true) {
       changeFlip(true);
-      setTimeout(
-        () => checkFlipped({ id: card.id, changeFlip: changeFlip }),
-        1000
-      );
+      //   setTimeout(
+      //     () => checkFlipped({ id: card.id, changeFlip: changeFlip }),
+      //     1000
+      //   );
+      checkFlipped({ id: card.id, changeFlip: changeFlip });
     }
   };
   return (
-    <div className="col-xl-3 col-lg-3 col-md-3 col-sm-3 mb-5">
+    <div className="col-3 mb-5">
       <div className="card">
         <img
           className="mx-auto"

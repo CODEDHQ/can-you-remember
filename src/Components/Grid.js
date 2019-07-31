@@ -1,55 +1,61 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import cards from "../data";
 import methods from "./methods";
 
-const Grid = React.memo(() => {
-  var usedCards = [];
+const Grid = ({ mode }) => {
+  const [usedCards, setUsedCards] = useState([]);
   //   const [flippedCards, changeFlipped] = useState([]);
   const [failedFlips, increaseFailed] = useState(0);
   let flippedCards = [];
   const changeFlipped = anArray => {
     flippedCards = anArray;
   };
+
+  const unflipCards = (unflip1, unflip2) => {
+    setTimeout(() => {
+      unflip1(false);
+      unflip2(false);
+    }, 1000);
+  };
+
   const checkFlipped = flippedObject => {
     changeFlipped([...flippedCards, flippedObject]);
+
     if (flippedCards.length === 2) {
       if (flippedCards[0].id !== flippedCards[1].id) {
-        flippedCards[0].changeFlip(false);
-        flippedCards[1].changeFlip(false);
+        unflipCards(flippedCards[0].changeFlip, flippedCards[1].changeFlip);
         increaseFailed(failedFlips + 1);
-        changeFlipped([]);
-      } else {
-        changeFlipped([]);
       }
+      changeFlipped([]);
     }
   };
-  //Should put in reducer later
-  const mode = "Hard";
 
   //Used to duplicate the amount of cards since we need two of each and shuffle them using the function defined at the top
-  const results = useMemo(() => {
-    //Switch to check which difficulty is used and take the amount of cards needed
+
+  useEffect(() => {
+    let cardsToUse = [];
     switch (mode) {
       case "Easy":
-        usedCards = cards.slice(0, 6);
+        cardsToUse = cards.slice(0, 6);
         break;
       case "Medium":
-        usedCards = cards.slice(0, 8);
+        cardsToUse = cards.slice(0, 8);
         break;
       default:
-        usedCards = cards;
+        cardsToUse = cards;
         break;
     }
-    return (usedCards = methods.Shuffle(usedCards.concat(usedCards)));
+    setUsedCards(() => methods.Shuffle(cardsToUse.concat(cardsToUse)));
   }, [mode]);
 
+  //Switch to check which difficulty is used and take the amount of cards needed
+
   //Mapping through the array of cards and placing them in the card componenet
-  const cardDiv = useMemo(
-    () =>
-      usedCards.map(card => <Card card={card} checkFlipped={checkFlipped} />),
-    []
-  );
+  const cardDiv = usedCards.map((card, idx) => (
+    <Card key={`${card.id}-${idx}`} card={card} checkFlipped={checkFlipped} />
+  ));
+
   return (
     <div className="container">
       <div className="row">
@@ -65,6 +71,6 @@ const Grid = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default Grid;
