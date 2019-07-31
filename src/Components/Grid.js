@@ -36,10 +36,10 @@ const Grid = ({ mode }) => {
   useEffect(() => {
     let cardsToUse = [];
     switch (mode) {
-      case "Easy":
+      case "easy":
         cardsToUse = cards.slice(0, 6);
         break;
-      case "Medium":
+      case "medium":
         cardsToUse = cards.slice(0, 8);
         break;
       default:
