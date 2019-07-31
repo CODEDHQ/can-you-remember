@@ -13,7 +13,7 @@ const Card = ({ card, checkFlipped }) => {
     }
   };
   return (
-    <div className="col-3 mb-5">
+    <div className="col-3 my-1">
       <ReactCardFlip isFlipped={flipped} flipDirection="horizontal">
         <img
           className="mx-auto"

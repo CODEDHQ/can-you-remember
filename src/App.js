@@ -12,9 +12,7 @@ function App() {
   return (
     <div className="App border my-5">
       {difficult ? (
-        <div>
-          <Grid difficult={difficult} mode={mode} />
-        </div>
+        <Grid difficult={difficult} mode={mode} />
       ) : (
         <div>
           {mode ? (

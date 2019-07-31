@@ -80,21 +80,32 @@ const Grid = ({ mode, difficult }) => {
     <div className="container">
       <div className="row">
         <div className=" col-9">
-          <h1>Grid</h1>
-          {mode === "multi" ? (
-            <div>
-              <h1>{player1Turn ? "Player 1's Turn" : "Player 2's Turn"}</h1>
-            </div>
-          ) : null}
+          <h3>Grid</h3>
+
           {/* Called cardDiv to place the cards in this componenet */}
-          <div className="row">{cardDiv}</div>
+          <div className="row border">{cardDiv}</div>
         </div>
-        <Score
-          failedFlips={failedFlips}
-          player1Score={playerScores[0].player1Score}
-          player2Score={playerScores[1].player2Score}
-          mode={mode}
-        />
+        {mode === "multi" ? (
+          <Score
+            player1Score={playerScores[0].player1Score}
+            player2Score={playerScores[1].player2Score}
+          />
+        ) : (
+          <div className="col-3 mt-3">
+            <div>
+              <h6>Failed Attempts: {failedFlips} </h6>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="row">
+        <div className="col-3" />
+        <div className="col-6" />
+        <div className="col-3">
+          {mode === "multi" ? (
+            <h6>{player1Turn ? "Player 1's Turn" : "Player 2's Turn"}</h6>
+          ) : null}
+        </div>
       </div>
     </div>
   );
