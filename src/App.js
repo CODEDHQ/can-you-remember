@@ -1,27 +1,22 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Home from "./Components/Home";
 import Difficulty from "./Components/Difficulty";
-import Grid from "./Components/Grid";
+import Game from "./Components/Game";
 
 function App() {
   const [mode, setMode] = useState(null);
-  const [difficult, setDifficulty] = useState(null);
-  console.log(mode, "  Rendering");
+  const [difficulty, setDifficulty] = useState(null);
+
+  const page = () => {
+    if (difficulty) return <Game difficulty={difficulty} mode={mode} />;
+    if (mode) return <Difficulty setDifficulty={setDifficulty} />;
+    return <Home setMode={setMode} />;
+  };
+
   return (
     <div className="App border my-5">
-      {difficult ? (
-        <Grid difficult={difficult} mode={mode} />
-      ) : (
-        <div>
-          {mode ? (
-            <Difficulty setDifficulty={setDifficulty} />
-          ) : (
-            <Home setMode={setMode} />
-          )}
-        </div>
-      )}
+      {page()}
       <div className="row">
         <div className="col-3">
           <button
