@@ -1,27 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-const Score = ({ player1Score, player2Score }) => {
-  useEffect(() => {}, [player1Score, player2Score]);
+// Components
+import MultiplayerScore from "./MultiplayerScore";
+import SingleplayerScore from "./SingleplayerScore";
 
-  return (
-    <div className="col-3 border">
-      <h3>Score</h3>
-      <table className="table table-responsive mx-auto">
-        <thead>
-          <tr>
-            <th scope="col">Player 1</th>
-            <th scope="col">Player 2</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{player1Score}</td>
-            <td>{player2Score}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  );
+const Score = ({ mode, score, failedFlips, playerTurn }) => {
+  if (mode === "multi")
+    return <MultiplayerScore score={score} playerTurn={playerTurn} />;
+  return <SingleplayerScore failedFlips={failedFlips} />;
 };
 
 export default Score;
