@@ -4,9 +4,7 @@ const Home = ({ setMode }) => {
   return (
     <div className="container">
       <div className="jumbotron m-5">
-        <div className="mb-5">
-          <h1>Can you remember?</h1>
-        </div>
+        <h1 className="mb-5">Can you remember?</h1>
         <div>
           <button
             type="button"

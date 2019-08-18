@@ -70,7 +70,7 @@ const Game = ({ mode, difficulty }) => {
     }
   };
 
-  //Mapping through the array of cards and placing them in the card componenet
+  //Mapping through the array of cards and placing them in the card component
   const cardList = cards.map((card, idx) => (
     <Card key={`${card.id}-${idx}`} card={card} checkFlipped={checkFlipped} />
   ));
